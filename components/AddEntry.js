@@ -4,6 +4,7 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 // Local 
 import { 
@@ -13,6 +14,7 @@ import {
 import UdaciSlider from './UdaciSlider'
 import UdaciStepper from './UdaciStepper'
 import DateHeader from './DateHeader'
+import TextButton from './TextButton'
 
 const INITIAL_STATE = {
     run: 0,
@@ -76,9 +78,33 @@ export default class AddEntry extends Component {
 
         // TODO: Clear local notification
     }
+
+    reset = () => {
+        const key = timeToString()
+
+        // TODO: Update Redux
+
+        // TODO: Navigate to Home
+
+        // TODO: Save to 'DB'
+    }
     
     render = () => {
         const metaInfo = getMetricMetaInfo()
+
+        if ( this.props.alreadyLogged ) {
+            return (
+                <View>
+                    <Ionicons 
+                        name='md-happy'
+                        size={100}
+                    />
+                    <Text>You already logged your information for today</Text>
+                    <TextButton onPress={this.reset}>Reset</TextButton>
+                </View>
+            )
+        }
+
         return (
             <View>
                 <DateHeader date={(new Date()).toLocaleDateString()}/>
