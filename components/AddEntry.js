@@ -3,6 +3,7 @@ import {
     View,
     TouchableOpacity,
     Text,
+    ScrollView,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
@@ -11,6 +12,10 @@ import {
     getMetricMetaInfo,
     timeToString,
 } from '../utils/helpers'
+import {
+    removeEntry,
+    submitEntry,
+} from '../utils/api'
 import UdaciSlider from './UdaciSlider'
 import UdaciStepper from './UdaciStepper'
 import DateHeader from './DateHeader'
@@ -74,7 +79,7 @@ export default class AddEntry extends Component {
 
         // TODO: Navigate to Home
 
-        // TODO: Save to 'DB'
+        submitEntry(key, entry)
 
         // TODO: Clear local notification
     }
@@ -86,7 +91,7 @@ export default class AddEntry extends Component {
 
         // TODO: Navigate to Home
 
-        // TODO: Save to 'DB'
+        removeEntry(key)
     }
     
     render = () => {
@@ -106,7 +111,7 @@ export default class AddEntry extends Component {
         }
 
         return (
-            <View>
+            <ScrollView>
                 <DateHeader date={(new Date()).toLocaleDateString()}/>
                 {Object.keys(metaInfo).map( key => {
                     const {getIcon, type, ...rest} = metaInfo[key]
@@ -133,7 +138,7 @@ export default class AddEntry extends Component {
                 })}
 
                 <SubmitBtn onPress={this.submit}/>
-            </View>
+            </ScrollView>
         )
     }
 }
