@@ -128,9 +128,14 @@ const getMetricMetaInfo = (metric) => {
         : info[metric]
 }
 
+const getDailyReminderValue = () => ({
+    today: "👋 Don't forget to log your data today!"
+})
+
 export {
     isBetween,
     calculateDirection,
     timeToString,
     getMetricMetaInfo,
+    getDailyReminderValue,
 }

@@ -6,11 +6,13 @@ import {
     ScrollView,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { connect } from 'react-redux'
 
 // Local 
 import { 
     getMetricMetaInfo,
     timeToString,
+    getDailyReminderValue,
 } from '../utils/helpers'
 import {
     removeEntry,
@@ -20,6 +22,7 @@ import UdaciSlider from './UdaciSlider'
 import UdaciStepper from './UdaciStepper'
 import DateHeader from './DateHeader'
 import TextButton from './TextButton'
+import { addEntry } from '../actions'
 
 const INITIAL_STATE = {
     run: 0,
@@ -37,7 +40,7 @@ const SubmitBtn = ({onPress}) => (
     </TouchableOpacity>
 )
 
-export default class AddEntry extends Component {
+class AddEntry extends Component {
     state = INITIAL_STATE
 
     increment = (metric) => {
@@ -73,7 +76,7 @@ export default class AddEntry extends Component {
         const key = timeToString()
         const entry = this.state
         
-        // TODO: Update Redux
+        this.props.addEntry(key, entry)
 
         this.setState( () => INITIAL_STATE)
 
@@ -87,7 +90,7 @@ export default class AddEntry extends Component {
     reset = () => {
         const key = timeToString()
 
-        // TODO: Update Redux
+        this.props.addEntry(key, getDailyReminderValue())
 
         // TODO: Navigate to Home
 
@@ -142,3 +145,13 @@ export default class AddEntry extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    alreadyLogged: state[timeToString()] && typeof state[timeToString()].today === 'undefined'
+})
+
+const mapDispatchToProps = dispatch => ({
+    addEntry: (key, value) => dispatch(addEntry({ [key]: value }))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddEntry)
