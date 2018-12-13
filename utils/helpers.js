@@ -1,7 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { white } from './colors'
+import { white, red, blue, orange, lightPurp, pink } from './colors'
 
 const isBetween = (num, x, y) => num >= x && num <= y
 
@@ -39,6 +39,18 @@ const timeToString = (time = Date.now()) => {
     return todayUTC.toISOString().split('T')[0]
 }
 
+const styles = StyleSheet.create({
+    iconContainer: {
+        padding: 5,
+        borderRadius: 8,
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 20
+    }
+})
+
 const getMetricMetaInfo = (metric) => {
     const info = {
         run: {
@@ -48,10 +60,10 @@ const getMetricMetaInfo = (metric) => {
             step: 1,
             type: 'steppers',
             getIcon: () => (
-                <View>
+                <View style={[styles.iconContainer, {backgroundColor: red}]}>
                     <Ionicons 
                         name='ios-walk'
-                        color={'black'}
+                        color={white}
                         size={35}
                     />
                 </View>
@@ -64,10 +76,10 @@ const getMetricMetaInfo = (metric) => {
             step: 1,
             type: 'steppers',
             getIcon: () => (
-                <View>
+                <View style={[styles.iconContainer, {backgroundColor: orange}]}>
                     <Ionicons
                         name='ios-bicycle'
-                        color={'black'}
+                        color={white}
                         size={35}
                     />
                 </View>
@@ -80,10 +92,10 @@ const getMetricMetaInfo = (metric) => {
             step: 100,
             type: 'steppers',
             getIcon: () => (
-                <View>
+                <View style={[styles.iconContainer, {backgroundColor: blue}]}>
                     <MaterialCommunityIcons
                         name='swim'
-                        color={'black'}
+                        color={white}
                         size={35}
                     />
                 </View>
@@ -96,10 +108,10 @@ const getMetricMetaInfo = (metric) => {
             step: 1,
             type: 'slider',
             getIcon: () => (
-                <View>
+                <View style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
                     <Ionicons
                         name='md-bed'
-                        color={'black'}
+                        color={white}
                         size={35}
                     />
                 </View>
@@ -112,10 +124,10 @@ const getMetricMetaInfo = (metric) => {
             step: 1,
             type: 'slider',
             getIcon: () => (
-                <View>
+                <View style={[styles.iconContainer, {backgroundColor: pink}]}>
                     <Ionicons
                         name='ios-pizza'
-                        color={'black'}
+                        color={white}
                         size={35}
                     />
                 </View>
