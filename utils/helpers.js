@@ -61,8 +61,8 @@ const getMetricMetaInfo = (metric) => {
             type: 'steppers',
             getIcon: () => (
                 <View style={[styles.iconContainer, {backgroundColor: red}]}>
-                    <Ionicons 
-                        name='ios-walk'
+                    <MaterialCommunityIcons 
+                        name='run'
                         color={white}
                         size={35}
                     />
