@@ -28,6 +28,7 @@ import { addEntry } from '../actions'
 import { 
     white, 
     purple, 
+    blue,
 } from '../utils/colors'
 
 const INITIAL_STATE = {
@@ -111,7 +112,8 @@ class AddEntry extends Component {
             return (
                 <View style={styles.center}>
                     <Ionicons 
-                        name='md-happy'
+                        name='ios-rocket'
+                        color={blue}
                         size={100}
                     />
                     <Text>You already logged your information for today</Text>

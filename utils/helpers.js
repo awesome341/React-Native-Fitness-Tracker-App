@@ -126,7 +126,7 @@ const getMetricMetaInfo = (metric) => {
             getIcon: () => (
                 <View style={[styles.iconContainer, {backgroundColor: pink}]}>
                     <Ionicons
-                        name='ios-pizza'
+                        name='ios-restaurant'
                         color={white}
                         size={35}
                     />
