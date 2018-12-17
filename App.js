@@ -5,11 +5,13 @@ import { Provider } from 'react-redux'
 
 import reducer from './reducers'
 import TabContainer from './components/TabContainer'
+import UdaciStatusBar from './components/UdaciStatusBar'
+import { purple } from './utils/colors'
 
 const App = () => (
   <Provider store={createStore(reducer)}>
     <View style={{flex: 1}}>
-      <View style={{height: 20}} />
+      <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
       <TabContainer />
     </View>
   </Provider>
