@@ -173,6 +173,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingBottom: 3,
+        paddingTop: 3,
     },
     iosSubmitBtn: {
         backgroundColor: purple,

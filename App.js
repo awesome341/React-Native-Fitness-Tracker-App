@@ -3,17 +3,16 @@ import { View } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-// import AddEntry from './components/AddEntry'
-import History from './components/History'
 import reducer from './reducers'
+import TabContainer from './components/TabContainer'
 
-export default class App extends React.Component {
-  render = () => (
-    <Provider store={createStore(reducer)}>
-      <View style={{flex: 1}}>
-        <View style={{height: 20}} />
-        <History />
-      </View>
-    </Provider>
-  )
-}
+const App = () => (
+  <Provider store={createStore(reducer)}>
+    <View style={{flex: 1}}>
+      <View style={{height: 20}} />
+      <TabContainer />
+    </View>
+  </Provider>
+)
+
+export default App
