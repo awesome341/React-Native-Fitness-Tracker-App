@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 // Local 
 import { 
@@ -83,12 +84,13 @@ class AddEntry extends Component {
     submit = () => {
         const key = timeToString()
         const entry = this.state
+        const { addEntry, toHome } = this.props
         
-        this.props.addEntry(key, entry)
+        addEntry(key, entry)
 
         this.setState( () => INITIAL_STATE)
 
-        // TODO: Navigate to Home
+        toHome()
 
         submitEntry(key, entry)
 
@@ -97,10 +99,11 @@ class AddEntry extends Component {
 
     reset = () => {
         const key = timeToString()
+        const { addEntry, toHome } = this.props
 
-        this.props.addEntry(key, getDailyReminderValue())
+        addEntry(key, getDailyReminderValue())
 
-        // TODO: Navigate to Home
+        toHome()
 
         removeEntry(key)
     }
@@ -213,8 +216,11 @@ const mapStateToProps = (state) => ({
     alreadyLogged: state[timeToString()] && typeof state[timeToString()].today === 'undefined'
 })
 
-const mapDispatchToProps = dispatch => ({
-    addEntry: (key, value) => dispatch(addEntry({ [key]: value }))
+const mapDispatchToProps = (dispatch, {navigation}) => ({
+    addEntry: (key, value) => dispatch(addEntry({ [key]: value })),
+    toHome: () => navigation.dispatch(NavigationActions.back({
+        key: 'AddEntry'
+    }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddEntry)
