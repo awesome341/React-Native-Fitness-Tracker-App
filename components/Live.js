@@ -1,18 +1,60 @@
 import React, { Component } from 'react'
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native'
 import { Foundation } from '@expo/vector-icons'
+import { Location, Permissions } from 'expo'
 
 import { purple, white, orange, gray } from '../utils/colors'
+import { calculateDirection } from '../utils/helpers'
 
 class Live extends Component {
     state = {
         coords: null,
-        status: 'denied',
+        status: null,
         direction: '',
     }
 
-    askPermission = () => {
+    componentDidMount() {
+        Permissions.getAsync(Permissions.LOCATION)
+            .then(({status}) => {
+                if ( status === 'granted' ) {
+                    return this.setLocation()
+                }
 
+                this.setState(() => ({status}))
+            })
+            .catch( err => {
+                console.warn('Error getting location permission: ', err)
+                this.setState(() => ({status: 'undetermined'}))
+            })
+    }
+
+    askPermission = () => {
+        Permissions.askAsync(Permissions.LOCATION)
+            .then(({status}) => {
+                if ( status === 'granted' ) {
+                    return this.setLocation()
+                }
+
+                this.setState(() => ({ status }))
+            })
+            .catch( err => console.warn('Error asking Location permission: ', err) )
+    }
+
+    setLocation = () => {
+        Location.watchPositionAsync({
+            enableHighAccuracy: true,
+            timeInterval: 1,
+            distanceInterval: 1,
+        }, ({coords}) => {
+            const newDirection = calculateDirection(coords.heading)
+            const { direction } = this.state
+
+            this.setState(() => ({
+                coords,
+                status: 'granted',
+                direction: newDirection
+            }))
+        })
     }
 
     render() {
@@ -45,7 +87,7 @@ class Live extends Component {
                     </Text>
                     <TouchableOpacity
                         style={styles.btn}
-                        onPress={() => this.askPermission}  
+                        onPress={() => this.askPermission()}  
                     >
                         <Text style={styles.btnText}>
                             Enable
@@ -56,9 +98,33 @@ class Live extends Component {
         }
 
         return (
-            <View>
-                <Text>Live</Text>
-                <Text>{JSON.stringify(this.state)}</Text>
+            <View style={styles.container}>
+                <View style={styles.directionContainer}>
+                    <Text style={styles.header}>
+                        You're heading
+                    </Text>
+                    <Text style={styles.direction}>
+                        {direction}
+                    </Text>
+                </View>
+                <View style={styles.metricContainer}>
+                    <View style={styles.metric}>
+                        <Text style={[styles.header, {color: white}]}>
+                            Altitude
+                        </Text>
+                        <Text style={[styles.subHeader, { color: white }]}>
+                            {Math.round(coords.altitude)} Meters
+                        </Text>
+                    </View>
+                    <View style={styles.metric}>
+                        <Text style={[styles.header, { color: white }]}>
+                            Speed
+                        </Text>
+                        <Text style={[styles.subHeader, { color: white }]}>
+                            {(coords.speed * 3.6).toFixed(1)} KM/H
+                        </Text>
+                    </View>
+                </View>
             </View >
         )
     }
@@ -99,6 +165,40 @@ const styles = StyleSheet.create({
     btnText: {
         color: white,
         fontSize: 20,
+    },
+    directionContainer: {
+        flex: 1,
+        textAlign: 'center',
+        justifyContent: 'center',
+    },
+    header: {
+        fontSize: 35,
+        textAlign: 'center',
+    },
+    direction: {
+        color: purple,
+        fontSize: 100,
+        textAlign: 'center',
+    },
+    metricContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: purple,
+    },
+    metric: {
+        flex: 1,
+        paddingTop: 15,
+        paddingBottom: 15,
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        marginTop: 20,
+        marginBottom: 20,
+        marginRight: 10,
+        marginLeft: 10,
+    },
+    subHeader: {
+        fontSize: 25,
+        textAlign: 'center',
+        marginTop: 5,
     }
 })
 
