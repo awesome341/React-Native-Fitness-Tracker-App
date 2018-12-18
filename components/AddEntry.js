@@ -16,6 +16,8 @@ import {
     getMetricMetaInfo,
     timeToString,
     getDailyReminderValue,
+    clearLocalNotifications,
+    setLocalNotification,
 } from '../utils/helpers'
 import {
     removeEntry,
@@ -94,7 +96,8 @@ class AddEntry extends Component {
 
         submitEntry(key, entry)
 
-        // TODO: Clear local notification
+        clearLocalNotifications()
+            .then(setLocalNotification)
     }
 
     reset = () => {
