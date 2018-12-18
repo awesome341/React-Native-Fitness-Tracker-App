@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native'
 import { Foundation } from '@expo/vector-icons'
 
-import { purple, white } from '../utils/colors'
+import { purple, white, orange, gray } from '../utils/colors'
 
 class Live extends Component {
     state = {
         coords: null,
-        status: 'undetermined',
+        status: 'denied',
         direction: '',
     }
 
@@ -24,8 +24,14 @@ class Live extends Component {
 
         if ( status === 'denied' ) {
             return (
-                <View>
-                    <Text>Denied</Text>
+                <View style={styles.center}>
+                    <Foundation name='alert' size={50} color={orange} />
+                    <Text style={styles.alertText}>
+                        You denied your location.
+                    </Text>
+                    <Text style={styles.alertInfoText}>
+                        Fix this by visiting settings and enabling location services for this app.
+                    </Text>
                 </View >
             )
         }
@@ -33,8 +39,8 @@ class Live extends Component {
         if ( status === 'undetermined' ) {
             return (
                 <View style={styles.center}>
-                    <Foundation name='alert' size={50} />
-                    <Text>
+                    <Foundation name='alert' size={50} color={orange} />
+                    <Text style={styles.alertText}>
                         This app need location services.
                     </Text>
                     <TouchableOpacity
@@ -69,6 +75,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 30,
         marginRight: 30,
+    },
+    alertText: {
+        fontSize: 20,
+        color: purple,
+        textAlign: 'center',
+        justifyContent: 'center',
+    },
+    alertInfoText: {
+        fontSize: 15,
+        color: gray,
+        margin: 20,
+        textAlign: 'center',
+        justifyContent: 'center',
     },
     btn: {
         padding: 10,
