@@ -1,13 +1,15 @@
 # UdaciFitness  
 UdaciFitness is a React Native App where triathletes can log they daily training data.
 
+Try it on [Expo](https://expo.io/@emersonsiega/UdaciFitness)!  
+
 ## Prints  
-![History](https://imgur.com/xsuf0cP.jpg)  
+<img src="https://imgur.com/xsuf0cP.jpg" width="300">  
 
-![Add entry](https://imgur.com/EmTbrgo.jpg)  
+<img src="https://imgur.com/EmTbrgo.jpg" width="300">  
 
-![Already logged](https://imgur.com/SX9PijW.jpg)  
+<img src="https://imgur.com/SX9PijW.jpg" width="300">  
 
-![History of week](https://imgur.com/iVfVPd4.jpg)  
+<img src="https://imgur.com/iVfVPd4.jpg" width="300">  
 
-![History logged data](https://imgur.com/5iKPoO6.jpg)  
+<img src="https://imgur.com/5iKPoO6.jpg" width="300">  
