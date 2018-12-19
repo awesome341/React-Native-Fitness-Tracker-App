@@ -11,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "https://maxcdn.icons8.com/Color/PNG/512/Sports/triathlon-512.png",
+    "icon": "./assets/triathlon-512.png",
     "notification": {
-      "icon": "http://www.student-scholarships.com/images/made/img/featured/nav_basketball_45_45.png"
+      "icon": "./assets/triathlon-45.png"
     },
     "ios": {
       "bundleIdentifier": "org.udacifitness.exp",
@@ -23,7 +23,7 @@
       "package": "org.udacifitness.exp"
     },
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/triathlon-512.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
